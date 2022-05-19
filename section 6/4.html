@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>후위식 연산(postfix)</title>
+</head>
+<body>
+    <script>
+        function solution(s){
+            let answer;
+            let stack=[];
+            for(let x of s){
+                if(!isNaN(x)) {             //숫자이면
+                    stack.push(Number(x));  
+                } else {
+                    let rt = stack.pop();   //제일 위에 있는 값을 rt에 넣음
+                    let lt = stack.pop();   //그 다음 값을 lt에 넣음
+                    if(x==='+') {
+                        stack.push(lt+rt);
+                    }else if(x==='-'){
+                        stack.push(lt-rt);
+                    }else if(x==='*'){
+                        stack.push(lt*rt);
+                    }else if(x==='/'){
+                        stack.push(lt/rt);
+                    }
+                }
+            }
+            answer = stack[0];
+            return answer;
+        }
+
+        let str="352+*9-";
+            console.log(solution(str));
+    </script>
+</body>
+</html>

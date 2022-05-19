@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>크레인 인형뽑기(카카오 기출)</title>
+</head>
+<body>
+    <script>
+        function solution(board, moves){
+            let answer = 0;
+            let stack = [];
+            moves.forEach(pos=>{
+                for(let i=0; i<board.length; i++){
+                    if(board[i][pos-1]!==0){        //인형의 번호가 0이 아니면
+                        let tmp = board[i][pos-1];  //인형의 번호를 tmp에 저장
+                        board[i][pos-1]=0;          //인형이 있던 자리의 번호를 0으로 지정
+                        if(tmp===stack[stack.length-1]){    //만약 인형의 번호가 stack 제일 위의 인형의 번호와 같다면
+                            stack.pop();
+                            answer+=2;
+                        }
+                        else {
+                            stack.push(tmp);
+                            break;
+                        }
+                    }
+                }
+            })
+            return answer;
+        }
+
+        let a=[[0,0,0,0,0],
+                [0,0,1,0,3],
+                [0,2,5,0,1],
+                [4,2,4,4,2],
+                [3,5,1,3,1]];
+
+            let b=[1, 5, 3, 5, 1, 2, 1, 4];
+            console.log(solution(a, b));
+    </script>
+</body>
+</html>
