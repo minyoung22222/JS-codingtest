@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공주구하기</title>
+</head>
+<body>
+    <script>
+        function solution(n, k){
+            let answer;
+            let queue = Array.from({length:n}, (v, i) => i+1);  // 길이가 n인 배열로 초기화, index에 +1
+            while(queue.length) {
+                for(let i=0; i<k; i++) {
+                    queue.push(queue.shift());  // queue에서 삭제한 값을 맨 뒤로 넣어준다.
+                }
+                queue.shift();      // k번째 값 삭제
+                if(queue.length === 1) {    //queue에 남은 값이 1개 일 때
+                    answer = queue.shift();     //삭제된 요소 반환
+                }
+            }
+            return answer;
+        }
+        console.log(solution(8, 3));
+    </script>
+</body>
+</html>
