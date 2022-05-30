@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <script>
+        function solution(arr){
+            let answer = arr;
+            for(let i=0; i<arr.length; i++) {
+                let idx=i;         // index를 i로 초기화
+                for(let j=i+1; j<arr.length; j++){      //i 다음 인덱스부터 arr길이까지 반복
+                    if(arr[j]<arr[idx]) {           // 차례차레 비교했을 때 arr[j]가 더 작으면
+                        idx=j;          // index를 j로 바꾼다.
+                    }
+                }
+                [arr[i], arr[idx]] = [[arr[idx], arr[i]]];        // arr[i]랑 arr[idx]를 바꾼다.
+            }
+            return answer;
+        }
+
+        let arr=[13, 5, 11, 7, 23, 15];
+        console.log(solution(arr));
+    </script>
+</body>
+</html>
