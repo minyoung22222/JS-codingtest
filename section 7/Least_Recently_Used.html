@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LRU</title>
+</head>
+<body>
+    <script>
+        function solution (size, arr) {
+            let answer = [];
+            arr.forEach(x => {
+                let pos = -1;
+                for(let i=0; i<size; i++) {     // 0부터 size까지
+                    if(x === answer[i]) {       // hit일 때
+                        pos = i;
+                    }
+                }
+                if(pos === -1) {        // miss일 때
+                    for(let i=size-1; i>=1; i--) {      //뒤에서부터 처음까지
+                        answer[i] = answer[i-1];
+                    }
+                } else {
+                    for(let i=pos; i>=1; i--) {
+                        answer[i] = answer[i-1];
+                    }
+                }
+                answer[0] = x;
+            });
+            return answer;
+        }
+
+        let arr=[1, 2, 3, 2, 6, 2, 3, 5, 7];
+        console.log(solution(5, arr));
+    </script>
+</body>
+</html>
