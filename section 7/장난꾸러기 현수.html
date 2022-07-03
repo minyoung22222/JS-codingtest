@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장난꾸러기 현수</title>
+</head>
+<body>
+    <script>
+        function solution(arr) {
+            let answer = [];
+            let sortArr = arr.slice();      // arr를 slice해서 sortArr에 넣는다.
+            sortArr.sort((a, b) => a-b);    // sortArr를 정렬한다.
+            for(let i=0; i<arr.length; i++) {
+                if(arr[i]!==sortArr[i]) {   // 두 배열안의 숫자를 비교하여 같지 않다면
+                    answer.push(i+1);       
+                }
+            }
+            return answer;
+        }
+
+        let arr=[120, 125, 152, 130, 135, 135, 143, 127, 160];
+        console.log(solution(arr));
+    </script>
+</body>
+</html>
