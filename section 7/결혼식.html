@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>결혼식</title>
+    </head>
+    <body>
+        <script>
+            function solution(times) {
+                let answer = Number.MIN_SAFE_INTEGER;
+                let T_line = [];
+                for (let x of times) {
+                    T_line.push([x[0], "s"]); // 오는 시간
+                    T_line.push([x[1], "e"]); // 가는 시간
+                }
+                T_line.sort((a, b) => {
+                    if (a[0] === b[0]) {
+                        // 오는시간 or 가는시간 같으면
+                        return a[1].charCodeAt() - b[1].charCodeAt(); // 문자 오름차순 정렬 e < s (가는 사람 먼저 카운트)
+                    } else {
+                        return a[0] - b[0]; // 오는시간 오름차순 정렬
+                    }
+                });
+                console.log(T_line);
+                let cnt = 0;
+                for (x of T_line) {
+                    if (x[1] === "s") {
+                        // 만약 오는 시간이라면 (사람이 온다면)
+                        cnt++;
+                        console.log(cnt);
+                    } else {
+                        // 사람이 간다면
+                        cnt--;
+                        console.log(cnt);
+                    }
+                    answer = Math.max(answer, cnt); // for문을 돌면서 answer, cnt 비교하여 더 큰 값 answer에 저장
+                }
+                return answer;
+            }
+
+            let arr = [
+                [14, 18],
+                [12, 15],
+                [15, 20],
+                [20, 30],
+                [5, 14],
+            ];
+            console.log(solution(arr));
+        </script>
+    </body>
+</html>
