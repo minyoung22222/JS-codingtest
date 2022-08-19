@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>마구간 정하기(결정 알고리즘)</title>
+    </head>
+    <body>
+        <script>
+            // 답은 두 말 사이의 거리
+            // lt는 1로 (말 사이의 최소 거리는 1)
+            // 정렬하여 젤 큰 수를 rt로
+
+            // <이분검색 문제 순서>
+            // 1. 배열 정렬 후 답을 구하기 위한 구간(시작값(lt), 끝값(rt)) 정하기
+            // 2. lt<=rt 동안 mid값 지정하기
+            // 3. count 함수에서 mid값을 답이라고 가정하고 정렬된 배열 순환하며 count하기
+            // 4. count한 값을 문제에 주어진 값과 비교하여 조건에 맞는다면 answer에 mid값 저장 해놓고 lt=mid+1로 지정
+            // 5. 조건에 안 맞는다면 rt=mid-1로 지정
+
+            function count(stable, dist) {
+                let cnt = 1,
+                    endpoint = stable[0];
+                for (let i = 1; i < stable.length; i++) {
+                    if (stable[i] - endpoint >= dist) {
+                        cnt++;
+                        endpoint = stable[i];
+                    }
+                }
+                return cnt;
+            }
+
+            function solution(c, stable) {
+                let answer;
+                stable.sort((a, b) => a - b);
+                let lt = 1;
+                let rt = stable[stable.length - 1];
+                while (lt <= rt) {
+                    let mid = parseInt((lt + rt) / 2);
+                    if (count(stable, mid) >= c) {
+                        answer = mid;
+                        lt = mid + 1;
+                    } else {
+                        rt = mid - 1;
+                    }
+                }
+
+                return answer;
+            }
+
+            let arr = [1, 2, 8, 4, 9];
+            console.log(solution(3, arr));
+        </script>
+    </body>
+</html>
