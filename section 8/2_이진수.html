@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>재귀함수를 이용한 이진수 출력</title>
+    </head>
+    <body>
+        <script>
+            function solution(n) {
+                let answer = "";
+                function DFS(n) {
+                    if (n === 0) {
+                        return;
+                    } else {
+                        // n이 0이 아닌 다른 수 일 때
+                        DFS(parseInt(n / 2)); // 몫을 DFS로 호출
+                        answer += n % 2; // 답에 나머지 저장
+                    }
+                }
+                DFS(n);
+                return answer;
+            }
+
+            console.log(solution(11));
+        </script>
+    </body>
+</html>
