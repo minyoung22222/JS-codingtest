@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>순열 구하기</title>
+    </head>
+    <body>
+        <script>
+            function solution(m, arr) {
+                let answer = [];
+                let n = arr.length;
+                let check = Array.from({ length: n }, () => 0); // arr길이의 배열에서 이미 사용중인 숫자 1로 체크하기 (중복 제거)
+                let tmp = Array.from({ length: m }, () => 0);
+                function DFS(L) {
+                    if (L === m) {
+                        answer.push(tmp.slice());
+                    } else {
+                        for (let i = 0; i < n; i++) {
+                            if (check[i] === 0) {
+                                // arr에서 i번째 숫자가 사용중이 아니라면
+                                check[i] = 1; // check배열에서 1로 바꿔줌 (사용중으로)
+                                tmp[L] = arr[i];
+                                DFS(L + 1);
+                                check[i] = 0; //
+                            }
+                        }
+                    }
+                }
+                DFS(0);
+                return answer;
+            }
+
+            // check=[0,0,0] (L=0) <i=0> => check=[1,0,0] tmp=[3, ?] DFS(1)
+            //                                                    => <i=0> check[0] === 1 (해당안됨)
+            //                                                    => <i=1> check[1] === 0 check=[1,1,0] tmp=[3,6] DFS(2) => answer=[3,6] => check[1]===0
+            //                                                    => <i=2> check[2] === 0 check=[1,0,1] tmp=[3,9] DFS(2) => answer=[3,6] => check[2]===0
+            //                                                      check[0]=0
+
+            let arr = [3, 6, 9];
+            console.log(solution(2, arr));
+        </script>
+    </body>
+</html>

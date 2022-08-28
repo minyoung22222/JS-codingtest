@@ -10,9 +10,8 @@
         <script>
             function solution(n, m) {
                 let answer = [];
-                let tmp = Array.from({ length: m }, () => 0); // [0, 0] 초기화
+                let tmp = Array.from({ length: m }, () => 0); // [0, 0]초기화
                 function DFS(L) {
-                    // 이중 for문을 안 쓰는 이유? m값이 달라질 수 있기 때문에
                     if (L === m) {
                         answer.push(tmp.slice());
                     } else {
@@ -25,6 +24,19 @@
                 DFS(0);
                 return answer;
             }
+
+            // (L=0) <i=1> tmp[0]=1 => DFS(1)
+            //                  (L=1) <i=1> tmp[1]=1 => DFS(2) => [1,1]
+            //                        <i=2> tmp[1]=2 => DFS(2) => [1,2]
+            //                        <i=3> tmp[1]=3 => DFS(2) => [1,3]
+            //       <i=2> tmp[0]=2 => DFS(1)
+            //                  (L=1) <i=1> tmp[1]=1 => DFS(2) => [2,1]
+            //                        <i=2> tmp[1]=2 => DFS(2) => [2,2]
+            //                        <i=3> tmp[1]=3 => DFS(2) => [2,3]
+            //       <i=3> tmp[0]=3 => DFS(1)
+            //                  (L=1) <i=1> tmp[1]=1 => DFS(2) => [3,1]
+            //                        <i=2> tmp[1]=2 => DFS(2) => [3,2]
+            //                        <i=3> tmp[1]=3 => DFS(2) => [3,3]
 
             console.log(solution(3, 2));
         </script>
