@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>조합의 경우수 (메모이제이션)</title>
+    </head>
+    <body>
+        <script>
+            function solution(n, r) {
+                let answer;
+                let dy = Array.from(Array(35), () => Array(35).fill(0)); // 35 X 35 표에 0으로 다 채워넣기
+                function DFS(n, r) {
+                    if (dy[n][r] > 0) return dy[n][r]; // 만약 dy의 n행r열에 0이 아닌 저장되어 있는 수가 있다면 그 숫자 반환
+                    if (n === r || r === 0) {
+                        return 1;
+                    } else {
+                        return (dy[n][r] = DFS(n - 1, r - 1) + DFS(n - 1, r));
+                    }
+                }
+                answer = DFS(n, r);
+                return answer;
+            }
+
+            console.log(solution(33, 19));
+        </script>
+    </body>
+</html>
